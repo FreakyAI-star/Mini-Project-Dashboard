@@ -9,7 +9,7 @@ import yfinance as yf
 from tensorflow.keras.models import model_from_json
 
 
-@st.cache
+@st.cache_data
 def load_model():
     # Load price window model
     json_file = open('models/checkpoints/lstm_long_term_model.json', 'r')
@@ -23,7 +23,7 @@ def load_model():
     return lstm_model
 
 
-@st.cache
+@st.cache_data
 def load_data():
     companies = pd.read_html('https://en.wikipedia.org/wiki/List_of_S'
                              '%26P_500_companies')[0]

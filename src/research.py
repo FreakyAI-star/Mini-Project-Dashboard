@@ -5,7 +5,7 @@ import numpy as np
 import api
 
 
-@st.cache
+@st.cache_data
 def load_data():
     companies = pd.read_html('https://en.wikipedia.org/wiki/List_of_S'
                              '%26P_500_companies')[0]
@@ -46,10 +46,7 @@ def write():
     st.title('Research')
 
     with st.spinner("Loading About ..."):
-        st.markdown(
-            """ Research tabs """,
-            unsafe_allow_html=True,
-        )
+       
         # Get company names and info
         companies = load_data()
 

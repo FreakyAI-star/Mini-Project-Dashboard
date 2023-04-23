@@ -1,0 +1,30 @@
+input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Style the labels */
+.sidebar .sidebar-content label {
+    display: block;
+    padding: 10px;
+    margin: 0;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+}
+
+.sidebar .sidebar-content label:hover {
+    background-color: #e0e0e0;
+}
+
+.sidebar .sidebar-content label.active {
+    background-color: #2196f3;
+    color: #fff;
+}
+
+/* Add some margin between the labels */
+.sidebar .sidebar-content label + label {
+    margin-top: 5px;
+}
