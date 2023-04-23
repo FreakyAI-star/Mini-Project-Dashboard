@@ -1,0 +1,7 @@
+streamlit
+awesome_streamlit
+pandas
+numpy
+yfinance
+requests
+tensorflow
