@@ -1,30 +1,36 @@
-input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* Style the labels */
-.sidebar .sidebar-content label {
-    display: block;
-    padding: 10px;
-    margin: 0;
-    cursor: pointer;
+.sidebar .sidebar-content {
+    margin-left: -20px;
+    padding: 0;
     background-color: #f5f5f5;
-    color: #333;
-    border-bottom: 1px solid #ccc;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 99;
 }
-
-.sidebar .sidebar-content label:hover {
-    background-color: #e0e0e0;
+.sidebar .sidebar-content li {
+    margin-bottom: 10px;
 }
-
-.sidebar .sidebar-content label.active {
-    background-color: #2196f3;
-    color: #fff;
+.radio-button-container [type="radio"] + label {
+    display: none !important;
 }
-
-/* Add some margin between the labels */
-.sidebar .sidebar-content label + label {
-    margin-top: 5px;
+.radio_button_style > label[for^="radio"]::before {
+    display: none !important;
+}
+.css-1544g2n {
+    /* padding: 6rem 1rem 1.5rem; */
+    padding-left: 0rem !important;
+    padding-top: 2rem !important;
+}
+.st-bo {
+    padding-right: 2px;
+    padding-bottom: 10px!important;
+}
+.st-bo input[type="radio"]{
+    list-style-type: none;
+}
+.st-eo {
+    margin-top: 0.35rem;
+    visibility: hidden !important;
 }
