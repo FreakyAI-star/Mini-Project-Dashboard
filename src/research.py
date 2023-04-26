@@ -12,7 +12,7 @@ def load_data():
     return companies.set_index('Symbol')
 
 
-@st.cache(suppress_st_warning=True)
+# @st.cache(suppress_st_warning=True)
 def load_quotes(asset):
     return yf.download(asset)
 
