@@ -9,6 +9,11 @@
     -webkit-overflow-scrolling: touch;
     z-index: 99;
 }
+.css-1y4p8pa {
+    width: 100%;
+    padding: 0.5rem 1rem 0.5rem !important;
+    max-width: 46rem;
+}
 .sidebar .sidebar-content li {
     margin-bottom: 10px;
 }
@@ -27,10 +32,5 @@
     padding-right: 2px;
     padding-bottom: 10px!important;
 }
-.st-bo input[type="radio"]{
-    list-style-type: none;
-}
-.st-eo {
-    margin-top: 0.35rem;
-    visibility: hidden !important;
-}
+div.stButton > button:first-child {
+    }

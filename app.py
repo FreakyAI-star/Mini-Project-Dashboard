@@ -6,16 +6,12 @@ import src.research
 import src.prediction
 
 
-ast.core.services.other.set_logging_format()
-
 # List of pages available for display
 PAGES = {
-    # "Home": src.home,
+    "Home": src.home,
     "Research": src.research,
     "Prediction": src.prediction,
 }
-
-
 
 def main():
     """Core of the app - switches between 'tabs' thanks to the sidebar"""
@@ -26,17 +22,19 @@ def main():
     st.markdown(
         '<style>' +open('style.css').read()+'<style>'
        ,
-        unsafe_allow_html=True,  # Fix the typo here
+        unsafe_allow_html=True,
     )
 
-    # Use a beta_expander to create the sidebar content
-    selection = st.sidebar.radio("", list(PAGES.keys()),key="radio")
-
-    page = PAGES[selection]
-
-    with st.spinner(f"Loading {selection} ..."):
-        ast.shared.components.write_page(page)
-
+    # Create tabs in the sidebar for each page
+    active_tab = st.sidebar.button("Home")
+    if active_tab:
+        ast.shared.components.write_page(PAGES["Home"])
+    active_tab = st.sidebar.button("Research")
+    if active_tab:
+        ast.shared.components.write_page(PAGES["Research"])
+    active_tab = st.sidebar.button("Prediction")
+    if active_tab:
+        ast.shared.components.write_page(PAGES["Prediction"])
 
 if __name__ == "__main__":
     main()
