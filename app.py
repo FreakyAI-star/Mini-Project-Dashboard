@@ -5,7 +5,6 @@ import src.home
 import src.research
 import src.prediction
 
-
 # List of pages available for display
 PAGES = {
     "Home": src.home,
@@ -24,16 +23,24 @@ def main():
        ,
         unsafe_allow_html=True,
     )
-
-    # Create tabs in the sidebar for each page
-    active_tab = st.sidebar.button("Home")
-    if active_tab:
+    
+    # Initialize a variable to keep track of which tab is currently active
+    active_tab = "Home"
+    
+    # Create buttons in the sidebar for each page
+    if st.sidebar.button("Home"):
+        active_tab = "Home"
+    if st.sidebar.button("Research"):
+        active_tab = "Research"
+    if st.sidebar.button("Prediction"):
+        active_tab = "Prediction"
+    
+    # Only show the "Home" button if it's the currently active tab
+    if active_tab == "Home":
         ast.shared.components.write_page(PAGES["Home"])
-    active_tab = st.sidebar.button("Research")
-    if active_tab:
+    elif active_tab == "Research":
         ast.shared.components.write_page(PAGES["Research"])
-    active_tab = st.sidebar.button("Prediction")
-    if active_tab:
+    elif active_tab == "Prediction":
         ast.shared.components.write_page(PAGES["Prediction"])
 
 if __name__ == "__main__":
