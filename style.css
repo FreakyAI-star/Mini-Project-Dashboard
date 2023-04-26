@@ -9,6 +9,11 @@
     -webkit-overflow-scrolling: touch;
     z-index: 99;
 }
+.css-z09lfk {
+   
+    border: 1px solid rgba(43,44,54,0.2) !important;
+    
+}
 .css-1y4p8pa {
     width: 100%;
     padding: 0.5rem 1rem 0.5rem !important;
@@ -33,4 +38,5 @@
     padding-bottom: 10px!important;
 }
 div.stButton > button:first-child {
+    
     }

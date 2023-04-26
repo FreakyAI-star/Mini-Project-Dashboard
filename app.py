@@ -19,8 +19,10 @@ def main():
 
     # Use CSS to style the sidebar and move it to the left side of the screen
     st.markdown(
-        '<style>' +open('style.css').read()+'<style>'
-       ,
+        '<style>' + open('style.css').read()+
+        '.sidebar .sidebar-content .block-container {border: none;}' +
+        '.sidebar .sidebar-content button {border: none;}' +
+        '</style>',
         unsafe_allow_html=True,
     )
     
@@ -28,11 +30,11 @@ def main():
     active_tab = "Home"
     
     # Create buttons in the sidebar for each page
-    if st.sidebar.button("Home"):
+    if st.sidebar.button("Home", key="home"):
         active_tab = "Home"
-    if st.sidebar.button("Research"):
+    if st.sidebar.button("Research", key="research"):
         active_tab = "Research"
-    if st.sidebar.button("Prediction"):
+    if st.sidebar.button("Prediction", key="prediction"):
         active_tab = "Prediction"
     
     # Only show the "Home" button if it's the currently active tab
