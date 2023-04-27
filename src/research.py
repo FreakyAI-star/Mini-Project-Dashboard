@@ -5,14 +5,12 @@ import numpy as np
 import api
 
 
-@st.cache_data
 def load_data():
     companies = pd.read_html('https://en.wikipedia.org/wiki/List_of_S'
                              '%26P_500_companies')[0]
     return companies.set_index('Symbol')
 
 
-# @st.cache(suppress_st_warning=True)
 def load_quotes(asset):
     return yf.download(asset)
 
