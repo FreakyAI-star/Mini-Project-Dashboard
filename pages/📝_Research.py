@@ -45,9 +45,11 @@ def news_table(company):
 
 
 
-st.title('Research')
+tab1, tab2, tab3 = st.tabs(["Home", "Statistics", "News"])
 
-with st.spinner("Loading About ..."):
+with tab1:
+   st.header("Research")
+   with st.spinner("Loading About ..."):
     
     # Get company names and info
     companies = load_data()
@@ -90,60 +92,116 @@ with st.spinner("Loading About ..."):
                                         'Date added',
                                         'Founded']])
 
-    # When at least one company is selected
-    if len(assets):
+with tab2:
+    with st.spinner("Loading About ..."):
+    
+        companies = load_data()      
 
-        # Slider for Moving Average window
-        maw = st.slider("Select the Moving Average window \
-        (Select 1 to execute no curve smoothing)", 1, 200, 50, 1)
+        if len(assets):
 
-        if len(assets) > 1:
-            stocks = pd.DataFrame([])
-            news = pd.DataFrame([])
-            for asset in assets:
+            # Slider for Moving Average window
+            maw = st.slider("Select the Moving Average window \
+            (Select 1 to execute no curve smoothing)", 1, 200, 50, 1)
+
+            if len(assets) > 1:
+                stocks = pd.DataFrame([])
+                news = pd.DataFrame([])
+                for asset in assets:
+                    # Stocks Graph
+                    # Get data for that company
+                    data = load_quotes(asset)
+                    data.index.name = None
+                    data = data.rename(columns={'Adj Close': asset})
+                    # Moving average
+                    if maw != 1:
+                        tmp = np.round(data[:][asset].rolling(maw).mean(), 2)
+                    else:
+                        tmp = data[:][asset]
+                    stocks = pd.concat([stocks, tmp], axis=1)
+
+                    # News articles
+                    news = news.append(news_table(companies.loc[asset].Security), ignore_index=True)
+
+            else:
                 # Stocks Graph
                 # Get data for that company
-                data = load_quotes(asset)
+                data = load_quotes(assets)
                 data.index.name = None
-                data = data.rename(columns={'Adj Close': asset})
+                data = data.rename(columns={'Adj Close': assets[0]})
+                stocks = data[:][assets[0]]
                 # Moving average
                 if maw != 1:
-                    tmp = np.round(data[:][asset].rolling(maw).mean(), 2)
-                else:
-                    tmp = data[:][asset]
-                stocks = pd.concat([stocks, tmp], axis=1)
+                    ma = np.round(stocks.rolling(maw).mean(), 2)
+                    # Checkbox for Bollinger Bands
+                    if st.checkbox('View Bollinger Bands', value=True):
+                        # Compute Bollinger Bands
+                        std = np.round(stocks.rolling(maw).std(), 2)
+                        ub = ma + std * 2
+                        lb = ma - std * 2
 
-                # News articles
-                news = news.append(news_table(companies.loc[asset].Security), ignore_index=True)
+                        stocks = pd.concat([stocks, ub, lb], axis=1, ignore_index=True)
+                        stocks = stocks.rename(
+                            columns={0: assets[0], 1: "Upper Bollinger Band", 2: "Lower Bollinger Band"})
+                    else:
+                        stocks = ma
 
-        else:
-            # Stocks Graph
-            # Get data for that company
-            data = load_quotes(assets)
-            data.index.name = None
-            data = data.rename(columns={'Adj Close': assets[0]})
-            stocks = data[:][assets[0]]
-            # Moving average
-            if maw != 1:
-                ma = np.round(stocks.rolling(maw).mean(), 2)
-                # Checkbox for Bollinger Bands
-                if st.checkbox('View Bollinger Bands', value=True):
-                    # Compute Bollinger Bands
-                    std = np.round(stocks.rolling(maw).std(), 2)
-                    ub = ma + std * 2
-                    lb = ma - std * 2
+                    # News articles
+                    news = news_table(companies.loc[assets[0]].Security)
 
-                    stocks = pd.concat([stocks, ub, lb], axis=1, ignore_index=True)
-                    stocks = stocks.rename(
-                        columns={0: assets[0], 1: "Upper Bollinger Band", 2: "Lower Bollinger Band"})
-                else:
-                    stocks = ma
+            st.line_chart(stocks)
+           
 
-                # News articles
-                news = news_table(companies.loc[assets[0]].Security)
+with tab3:
+   with st.spinner("Loading About ..."):
+    
+        companies = load_data()      
 
-        st.line_chart(stocks)
-        if news.empty:
-            st.write('''No news articles about the companies.''')
-        else:
-            st.table(news)
+        if len(assets):
+
+            # Slider for Moving Average window
+           
+
+            if len(assets) > 1:
+                stocks = pd.DataFrame([])
+                news = pd.DataFrame([])
+                for asset in assets:
+                    # Stocks Graph
+                    # Get data for that company
+                    data = load_quotes(asset)
+                    data.index.name = None
+                    data = data.rename(columns={'Adj Close': asset})
+                    # Moving average
+                    if maw != 1:
+                        tmp = np.round(data[:][asset].rolling(maw).mean(), 2)
+                    else:
+                        tmp = data[:][asset]
+                    stocks = pd.concat([stocks, tmp], axis=1)
+
+                    # News articles
+                    news = news.append(news_table(companies.loc[asset].Security), ignore_index=True)
+
+            else:
+                # Stocks Graph
+                # Get data for that company
+                data = load_quotes(assets)
+                data.index.name = None
+                data = data.rename(columns={'Adj Close': assets[0]})
+                stocks = data[:][assets[0]]
+                # Moving average
+                if maw != 1:
+                    ma = np.round(stocks.rolling(maw).mean(), 2)
+                    # Checkbox for Bollinger Bands
+                    
+
+                    # News articles
+                    news = news_table(companies.loc[assets[0]].Security)
+
+            if news.empty:
+                st.write('''No news articles about the companies.''')
+            else:
+                st.table(news)
+
+
+
+    # When at least one company is selected
+    
