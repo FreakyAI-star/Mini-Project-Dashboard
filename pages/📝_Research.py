@@ -4,7 +4,11 @@ import yfinance as yf
 import numpy as np
 import api
 
-
+st.markdown(
+'<style>'+open('style.css').read()+'</style>'
+       ,
+        unsafe_allow_html=True,
+ )
 def load_data():
     companies = pd.read_html('https://en.wikipedia.org/wiki/List_of_S'
                              '%26P_500_companies')[0]
@@ -40,53 +44,59 @@ def news_table(company):
     return df
 
 
-def write():
-    st.title('Research')
 
-    with st.spinner("Loading About ..."):
-       
-        # Get company names and info
-        companies = load_data()
+tab1, tab2, tab3 = st.tabs(["Home", "Statistics", "News"])
 
-        # Show table of companies
-        if st.checkbox('View companies list', value=True):
-            option = st.selectbox(
-                'Which sectors should be displayed',
-                ('All',) + tuple(companies['GICS Sector'].unique()),
-                index=0)
+with tab1:
+   st.header("Research")
+   with st.spinner("Loading About ..."):
+    
+    # Get company names and info
+    companies = load_data()
 
-            if option != 'All':
-                st.dataframe(companies[['Security',
+    # Show table of companies
+    if st.checkbox('View companies list', value=True):
+        option = st.selectbox(
+            'Which sectors should be displayed',
+            ('All',) + tuple(companies['GICS Sector'].unique()),
+            index=0)
+
+        if option != 'All':
+            st.dataframe(companies[['Security',
+                                    'GICS Sector',
+                                    'Date added',
+                                    'Founded']][companies['GICS Sector'] == option])
+        else:
+            st.dataframe(companies[['Security',
+                                    'GICS Sector',
+                                    'Date added',
+                                    'Founded']])
+
+    def label(symbol):
+        ''' Fancy display of company names '''
+        a = companies.loc[symbol]
+        return symbol + ' - ' + a.Security
+
+    # Select companies to display
+    st.subheader('Select assets')
+    assets = st.multiselect('Click below to select a new asset',
+                            companies.index.sort_values(),
+                            format_func=label)
+
+    # Determine if display company info
+    if st.checkbox('View company info', True):
+        st.table(companies.loc[assets][['Security',
                                         'GICS Sector',
-                                        'Date added',
-                                        'Founded']][companies['GICS Sector'] == option])
-            else:
-                st.dataframe(companies[['Security',
-                                        'GICS Sector',
+                                        'GICS Sub-Industry',
+                                        'Headquarters Location',
                                         'Date added',
                                         'Founded']])
 
-        def label(symbol):
-            ''' Fancy display of company names '''
-            a = companies.loc[symbol]
-            return symbol + ' - ' + a.Security
+with tab2:
+    with st.spinner("Loading About ..."):
+    
+        companies = load_data()      
 
-        # Select companies to display
-        st.subheader('Select assets')
-        assets = st.multiselect('Click below to select a new asset',
-                                companies.index.sort_values(),
-                                format_func=label)
-
-        # Determine if display company info
-        if st.checkbox('View company info', True):
-            st.table(companies.loc[assets][['Security',
-                                            'GICS Sector',
-                                            'GICS Sub-Industry',
-                                            'Headquarters Location',
-                                            'Date added',
-                                            'Founded']])
-
-        # When at least one company is selected
         if len(assets):
 
             # Slider for Moving Average window
@@ -139,7 +149,59 @@ def write():
                     news = news_table(companies.loc[assets[0]].Security)
 
             st.line_chart(stocks)
+           
+
+with tab3:
+   with st.spinner("Loading About ..."):
+    
+        companies = load_data()      
+
+        if len(assets):
+
+            # Slider for Moving Average window
+           
+
+            if len(assets) > 1:
+                stocks = pd.DataFrame([])
+                news = pd.DataFrame([])
+                for asset in assets:
+                    # Stocks Graph
+                    # Get data for that company
+                    data = load_quotes(asset)
+                    data.index.name = None
+                    data = data.rename(columns={'Adj Close': asset})
+                    # Moving average
+                    if maw != 1:
+                        tmp = np.round(data[:][asset].rolling(maw).mean(), 2)
+                    else:
+                        tmp = data[:][asset]
+                    stocks = pd.concat([stocks, tmp], axis=1)
+
+                    # News articles
+                    news = news.append(news_table(companies.loc[asset].Security), ignore_index=True)
+
+            else:
+                # Stocks Graph
+                # Get data for that company
+                data = load_quotes(assets)
+                data.index.name = None
+                data = data.rename(columns={'Adj Close': assets[0]})
+                stocks = data[:][assets[0]]
+                # Moving average
+                if maw != 1:
+                    ma = np.round(stocks.rolling(maw).mean(), 2)
+                    # Checkbox for Bollinger Bands
+                    
+
+                    # News articles
+                    news = news_table(companies.loc[assets[0]].Security)
+
             if news.empty:
                 st.write('''No news articles about the companies.''')
             else:
                 st.table(news)
+
+
+
+    # When at least one company is selected
+    

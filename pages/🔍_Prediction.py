@@ -58,47 +58,51 @@ def predict_next_stock(model, stocks):
     # Inverse transform
     return prediction * (total_max - total_min) + total_min
 
+st.markdown(
+"<style> .css-1y4p8pa { padding: 0.5rem 1rem 0.5rem !important;} </style>"
+       ,
+        unsafe_allow_html=True,
+ )
 
-def write():
-    st.title('Prediction')
-    with st.spinner("Loading About ..."):
-        
-        # Get company names and info
-        companies = load_data()
-        # Get models
-        lstm_model = load_model()
+st.title('Prediction')
+with st.spinner("Loading About ..."):
+    
+    # Get company names and info
+    companies = load_data()
+    # Get models
+    lstm_model = load_model()
 
-        def label(symbol):
-            ''' Fancy display of company names '''
-            a = companies.loc[symbol]
-            return symbol + ' - ' + a.Security
+    def label(symbol):
+        ''' Fancy display of company names '''
+        a = companies.loc[symbol]
+        return symbol + ' - ' + a.Security
 
-        # Select companies to display
-        st.subheader('Select assets')
-        asset = st.selectbox('Click below to select a new asset',
-                             companies.index.sort_values(),
-                             format_func=label)
+    # Select companies to display
+    st.subheader('Select assets')
+    asset = st.selectbox('Click below to select a new asset',
+                            companies.index.sort_values(),
+                            format_func=label)
 
-        # Get data for that company
-        st.write(asset)
+    # Get data for that company
+    st.write(asset)
 
-        data = load_quotes(asset)
-        data.index.name = None
-        data = data.rename(columns={'Adj Close': asset})
-        stocks = data[:][asset]
+    data = load_quotes(asset)
+    data.index.name = None
+    data = data.rename(columns={'Adj Close': asset})
+    stocks = data[:][asset]
 
-        # Model prediction
-        predicted_val = predict_next_stock(lstm_model, stocks)
+    # Model prediction
+    predicted_val = predict_next_stock(lstm_model, stocks)
 
-        # visualization
-        slope = (predicted_val[0][0] - stocks.values[-1]) / 5
-        projection_line = [stocks.values[-1]+i*slope for i in range(1, 6)]
-        project_index = [stocks.index[-1]+pd.Timedelta(i, unit='D') for i in range(1, 6)]
-        projection = pd.Series(data=projection_line, index=project_index)
-        data = pd.concat([stocks, projection], axis=1, ignore_index=True)
-        data = data.rename(
-            columns={0: asset[0], 1: "Predicted value", 2: "Lower Bollinger Band"})
+    # visualization
+    slope = (predicted_val[0][0] - stocks.values[-1]) / 5
+    projection_line = [stocks.values[-1]+i*slope for i in range(1, 6)]
+    project_index = [stocks.index[-1]+pd.Timedelta(i, unit='D') for i in range(1, 6)]
+    projection = pd.Series(data=projection_line, index=project_index)
+    data = pd.concat([stocks, projection], axis=1, ignore_index=True)
+    data = data.rename(
+        columns={0: asset[0], 1: "Predicted value", 2: "Lower Bollinger Band"})
 
-        st.line_chart(data)
+    st.line_chart(data)
 
-        st.write(f'Long Short Term Memory model predicts the stock to be valued at {predicted_val[0][0]:.2f} in 5 days.')
+    st.write(f'Long Short Term Memory model predicts the stock to be valued at {predicted_val[0][0]:.2f} in 5 days.')
