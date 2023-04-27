@@ -59,7 +59,7 @@ def predict_next_stock(model, stocks):
     return prediction * (total_max - total_min) + total_min
 
 st.markdown(
-'<style>'+open('style.css').read()+'</style>'
+"<style> .css-1y4p8pa { padding: 0.5rem 1rem 0.5rem !important;} </style>"
        ,
         unsafe_allow_html=True,
  )
