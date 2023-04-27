@@ -9,6 +9,7 @@
     -webkit-overflow-scrolling: touch;
     z-index: 99;
 }
+
 .css-z09lfk {
    
     border: 1px solid rgba(43,44,54,0.2) !important;
@@ -29,7 +30,6 @@
     display: none !important;
 }
 .css-1544g2n {
-    /* padding: 6rem 1rem 1.5rem; */
     padding-left: 0rem !important;
     padding-top: 2rem !important;
 }
@@ -37,6 +37,8 @@
     padding-right: 2px;
     padding-bottom: 10px!important;
 }
-div.stButton > button:first-child {
+.css-1we6k59 {
     
-    }
+    margin-bottom: 20px !important;
+   
+}
