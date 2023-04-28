@@ -1,4 +1,4 @@
-![Home]()
+![Home](home.png)
 
 ## Introduction
 
@@ -13,6 +13,12 @@ which fits entirely on a single computer screen so it can be monitored at a glan
 * We have tried to keep similar data together so that the information that appears on the dashboard does not look fragmanted. We have kept different tabs for different kinds of information enabling users to navigate to discrete screens or different instances of a single screen to access additional information. 
 * We have supplied adequate context for the data so that data could be interpreted rightly.
 * We have chosen scatter plot to show the trend of stock prices which is a standard.
+
+![research1](research1.png)
+
+![research2](research2.png)
+
+![prediction](prediction.png)
 
 ## Installation
 
