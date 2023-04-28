@@ -57,7 +57,7 @@ with tab1:
     # Show table of companies
     if st.checkbox('View companies list', value=True):
         option = st.selectbox(
-            'Which sectors should be displayed',
+            'Select the sectors to be displayed',
             ('All',) + tuple(companies['GICS Sector'].unique()),
             index=0)
 
@@ -84,8 +84,7 @@ with tab1:
                             format_func=label)
 
     # Determine if display company info
-    if st.checkbox('View company info', True):
-        st.table(companies.loc[assets][['Security',
+    st.table(companies.loc[assets][['Security',
                                         'GICS Sector',
                                         'GICS Sub-Industry',
                                         'Headquarters Location',

@@ -59,8 +59,7 @@ def predict_next_stock(model, stocks):
     return prediction * (total_max - total_min) + total_min
 
 st.markdown(
-"<style> .css-1y4p8pa { padding: 0.5rem 1rem 0.5rem !important;} </style>"
-       ,
+'<style>'+open('pred_style.css').read()+'</style>'       ,
         unsafe_allow_html=True,
  )
 
@@ -79,7 +78,7 @@ with st.spinner("Loading About ..."):
 
     # Select companies to display
     st.subheader('Select assets')
-    asset = st.selectbox('Click below to select a new asset',
+    asset = st.selectbox('',
                             companies.index.sort_values(),
                             format_func=label)
 
@@ -105,4 +104,5 @@ with st.spinner("Loading About ..."):
 
     st.line_chart(data)
 
-    st.write(f'Long Short Term Memory model predicts the stock to be valued at {predicted_val[0][0]:.2f} in 5 days.')
+    color = 'red'
+    st.write(f'Long Short Term Memory model predicts the stock to be valued at <span style="color:{color}">{predicted_val[0][0]:.2f}</span> in 5 days.', unsafe_allow_html=True)

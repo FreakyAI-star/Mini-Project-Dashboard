@@ -1,6 +1,6 @@
 .sidebar .sidebar-content {
     margin-left: -20px;
-    padding: 0;
+    padding: 20 20 20 20px !important;
     background-color: #f5f5f5;
     position: fixed;
     top: 0;
@@ -8,6 +8,31 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 99;
+}
+.stCard > div {
+        box-shadow: none;
+    }
+body{
+    background-color: transparent !important;
+}
+.css-1wrcr25 {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    place-content: flex-start;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    position: absolute;
+    inset: 0px;
+    overflow: hidden;
+    background-image: url("https://blog.paperspace.com/content/images/size/w1050/2021/05/0_JhQln53nvsJNM7-c.jpg") !important;
+}
+.css-lrlib {
+    
+    font-size: larger !important;
+}
+li{
+    margin-bottom: 20px !important;
 }
 
 .css-z09lfk {
