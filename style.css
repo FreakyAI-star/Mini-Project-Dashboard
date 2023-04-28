@@ -9,39 +9,18 @@
     -webkit-overflow-scrolling: touch;
     z-index: 99;
 }
-<<<<<<< HEAD
-.stCard > div {
-        box-shadow: none;
-    }
-body{
-    background-color: transparent !important;
-}
-.css-1wrcr25 {
-    display: flex;
-    flex-direction: row;
-    -webkit-box-pack: start;
-    place-content: flex-start;
-    -webkit-box-align: stretch;
-    align-items: stretch;
-    position: absolute;
-    inset: 0px;
-    overflow: hidden;
-    background-image: url("https://blog.paperspace.com/content/images/size/w1050/2021/05/0_JhQln53nvsJNM7-c.jpg") !important;
-}
-.css-lrlib {
-    
-    font-size: larger !important;
-}
-li{
-    margin-bottom: 20px !important;
-}
-=======
 h1 {
->>>>>>> f4da0c3ddcc4564a6ceaa7327f97b83edac99130
 
     color: lightgreen !important;
   
 }
+
+.header {
+
+    color: lightgreen !important;
+  
+}
+
 .css-z09lfk {
    
     border: 1px solid rgba(43,44,54,0.2) !important;

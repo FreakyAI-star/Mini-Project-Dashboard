@@ -4,6 +4,7 @@
 
 This dashboard is a web app designed with Streamlit. This web-interface is built for your personal virtual assistantance for Stock Market Investments. From the visualization of recent stock price variations for any of the current Top 100 NASDAQ companies, to recent articles about these companies, you can explore sources of information to make accurate decisions for your next trades.
 
+
 ## Installation
 
 Firstly, ensure that you have pip install. In which case follow these steps using the command line:

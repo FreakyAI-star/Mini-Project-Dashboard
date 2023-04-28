@@ -55,22 +55,21 @@ with tab1:
     companies = load_data()
 
     # Show table of companies
-    if st.checkbox('View companies list', value=True):
-        option = st.selectbox(
-            'Select the sectors to be displayed',
-            ('All',) + tuple(companies['GICS Sector'].unique()),
-            index=0)
+    option = st.selectbox(
+        'Select the sectors to be displayed',
+        ('All',) + tuple(companies['GICS Sector'].unique()),
+        index=0)
 
-        if option != 'All':
-            st.dataframe(companies[['Security',
-                                    'GICS Sector',
-                                    'Date added',
-                                    'Founded']][companies['GICS Sector'] == option])
-        else:
-            st.dataframe(companies[['Security',
-                                    'GICS Sector',
-                                    'Date added',
-                                    'Founded']])
+    if option != 'All':
+        st.dataframe(companies[['Security',
+                                'GICS Sector',
+                                'Date added',
+                                'Founded']][companies['GICS Sector'] == option])
+    else:
+        st.dataframe(companies[['Security',
+                                'GICS Sector',
+                                'Date added',
+                                'Founded']])
 
     def label(symbol):
         ''' Fancy display of company names '''
@@ -199,8 +198,4 @@ with tab3:
                 st.write('''No news articles about the companies.''')
             else:
                 st.table(news)
-
-
-
-    # When at least one company is selected
     
