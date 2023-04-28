@@ -9,6 +9,7 @@
     -webkit-overflow-scrolling: touch;
     z-index: 99;
 }
+<<<<<<< HEAD
 .stCard > div {
         box-shadow: none;
     }
@@ -34,7 +35,13 @@ body{
 li{
     margin-bottom: 20px !important;
 }
+=======
+h1 {
+>>>>>>> f4da0c3ddcc4564a6ceaa7327f97b83edac99130
 
+    color: lightgreen !important;
+  
+}
 .css-z09lfk {
    
     border: 1px solid rgba(43,44,54,0.2) !important;
@@ -67,3 +74,4 @@ li{
     margin-bottom: 20px !important;
    
 }
+
