@@ -4,7 +4,7 @@
 
 This dashboard is a web app designed with Streamlit. This web-interface is built for your personal virtual assistantance for Stock Market Investments. From the visualization of recent stock price variations for any of the current Top 100 NASDAQ companies, to recent articles about these companies, you can explore sources of information to make accurate decisions for your next trades.
 
-## Design process and feautres of dashboard
+## Design process and features of dashboard
 * Our design process is inspired by the following definition of dashboard "Visual display of the most information needed to achieve one or more objectives
 which fits entirely on a single computer screen so it can be monitored at a glance".
 * We have made sure that the essential components of the dashboard fits on a single computer screen. The objective is to have the most important information readily and effortlessly available so you can quickly absorb what you need to know.
